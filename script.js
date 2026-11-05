@@ -74,6 +74,8 @@ const BIODATA = {
     { src: "photos/photo-4.jpg", caption: "Cafe moment" },
     { src: "photos/photo-5.jpg", caption: "In pink" },
     { src: "photos/photo-6.jpg", caption: "In black" },
+    { src: "photos/photo-7.jpeg", caption: "In botom green" },
+    { src: "photos/photo-8.jpg", caption: "In magenda" },
   ],
 
 
