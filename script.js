@@ -206,7 +206,7 @@ function build() {
         <p class="lead">${B.about.lead}</p>
         ${B.about.paragraphs.map((p) => `<p>${markTodo(p)}</p>`).join("")}
       </div>
-      <div class="card quote tilt reveal right"><p>${markTodo(B.about.quote)}</p></div>
+      ${B.about.photo ? `<div class="card about-photo tilt reveal right"><img src="${B.about.photo}" alt="${B.name}" loading="lazy" /></div>` : ""}
     </div>
   </div></section>`;
 
@@ -270,13 +270,13 @@ function build() {
 
   const family = `
   <section class="section" id="family"><div class="wrap">
-    ${head("Where I come from", "Family & preferences")}
+    ${head("Where I come from", "Family & hobbies")}
     <div class="two-col">
       <div class="card reveal left"><h3>Family</h3>
         <ul class="kv">${B.family.map(([k, v], i) => `<li class="reveal" style="--d:${i * 80}ms"><span>${k}</span><b>${markTodo(v)}</b></li>`).join("")}</ul>
       </div>
-      <div class="card reveal right"><h3>Partner preferences</h3>
-        <ul class="ticks">${B.preferences.map((p, i) => `<li class="reveal" style="--d:${i * 100}ms">${markTodo(p)}</li>`).join("")}</ul>
+      <div class="card reveal right"><h3>Hobbies</h3>
+        <ul class="kv">${B.hobby.map(([k, v], i) => `<li class="reveal" style="--d:${i * 80}ms"><span>${k}</span><b>${markTodo(v)}</b></li>`).join("")}</ul>
       </div>
     </div>
     <div class="marquee reveal"><div class="marquee-track">
