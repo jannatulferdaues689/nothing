@@ -9,7 +9,7 @@
 const BIODATA = {
   name: "Jannatul Ferdaues",
   initial: "JF",
-  photo: "photo.jpg",        // main hero photo — leave empty to show the initial
+  photo: "",        // main hero photo — leave empty to show the initial
   invocation: "",            // optional opening line / dua / blessing (leave empty to hide)
   roles: [
     "Data Science & AI Student",
