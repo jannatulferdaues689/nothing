@@ -69,9 +69,11 @@ const BIODATA = {
   // Leave src empty ("") to show an "Add photo" placeholder tile.
   gallery: [
     { src: "photos/photo-1.jpg", caption: "Portrait" },
-    { src: "", caption: "Add a photo" },
-    { src: "", caption: "Add a photo" },
-    { src: "", caption: "Add a photo" },
+    { src: "photos/photo-2.jpg", caption: "Park day" },
+    { src: "photos/photo-3.jpg", caption: "Brick wall smile" },
+    { src: "photos/photo-4.jpg", caption: "Cafe moment" },
+    { src: "photos/photo-5.jpg", caption: "In pink" },
+    { src: "photos/photo-6.jpg", caption: "In black" },
   ],
 
 
