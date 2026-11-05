@@ -59,6 +59,11 @@ const BIODATA = {
     ["Family Values", "I'll prioritize my family more than anything."],
   ],
 
+    hobby:[
+     ["1st:", "Watching Anime"],
+     ["2nd:", "Reading Manhwa"],
+     ["3rd:", "Watching K-drama"],
+],
   // Photo gallery — put image files in the "photos" folder and list them here.
   // Leave src empty ("") to show an "Add photo" placeholder tile.
   gallery: [
@@ -68,11 +73,6 @@ const BIODATA = {
     { src: "", caption: "Add a photo" },
   ],
 
-  preferences: [
-    "Add what you value most in a life partner.",
-    "Add preferred education / profession (optional).",
-    "Add any other preference you'd like to share.",
-  ],
 
   education: [
     {
@@ -128,12 +128,7 @@ const BIODATA = {
 
   interests: ["Kaggle Competitions", "Building Web Apps", "Machine Learning", "Learning New Tools", "Add a hobby", "Add a hobby"],
 
-  hobby:[
-     ["1st:", "Watching Anime"],
-     ["2nd:", "Reading Manhwa"],
-     ["3rd:", "Watching K-drama"],
-
-],
+ 
   contact: {
     note: "For proposals, please reach out to my guardian first.",
     rows: [
