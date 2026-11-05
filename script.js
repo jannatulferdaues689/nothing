@@ -29,9 +29,8 @@ const BIODATA = {
     paragraphs: [
       "I'm a final-year student focused on data science and AI, based in Bangladesh. I love turning messy problems into working things — from machine learning models and NLP tools to full-stack web apps.",
       "Outside coursework, I build a portfolio through Kaggle competitions, academic work, and independent projects. I'm aiming to step into the IT industry in 2027 as a data analyst.",
-      "Add 1–2 sentences about your values, personality and what you're looking for in a life partner.",
     ],
-    quote: "Add a line that sums you up — a favourite saying or personal motto.",
+    photo: "photo.jpg", 
   },
 
   details: [
@@ -63,6 +62,8 @@ const BIODATA = {
      ["1st:", "Watching Anime"],
      ["2nd:", "Reading Manhwa"],
      ["3rd:", "Watching K-drama"],
+     ["4th:", "Listing K-pop, Japanese song"],
+     ["5th:", "Watching Movie"],
 ],
   // Photo gallery — put image files in the "photos" folder and list them here.
   // Leave src empty ("") to show an "Add photo" placeholder tile.
@@ -126,7 +127,7 @@ const BIODATA = {
   ],
   hfLink: "https://www.jannatulferdaues.site/home",
 
-  interests: ["Kaggle Competitions", "Building Web Apps", "Machine Learning", "Learning New Tools", "Add a hobby", "Add a hobby"],
+  interests: ["Kaggle Competitions", "Building Web Apps", "Machine Learning", "Learning New Tools"],
 
  
   contact: {
