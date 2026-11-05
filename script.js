@@ -9,7 +9,7 @@
 const BIODATA = {
   name: "Jannatul Ferdaues",
   initial: "JF",
-  photo: "",                 // e.g. "photo.jpg" — leave empty to show the initial
+  photo: "photo.jpg",        // main hero photo — leave empty to show the initial
   invocation: "",            // optional opening line / dua / blessing (leave empty to hide)
   roles: [
     "Data Science & AI Student",
@@ -29,7 +29,7 @@ const BIODATA = {
     paragraphs: [
       "I'm a final-year student focused on data science and AI, based in Bangladesh. I love turning messy problems into working things — from machine learning models and NLP tools to full-stack web apps.",
       "Outside coursework, I build a portfolio through Kaggle competitions, academic work, and independent projects. I'm aiming to step into the IT industry in 2027 as a data analyst.",
-      
+      "Add 1–2 sentences about your values, personality and what you're looking for in a life partner.",
     ],
     quote: "Add a line that sums you up — a favourite saying or personal motto.",
   },
@@ -51,7 +51,7 @@ const BIODATA = {
      
   ],
 
-  family: [
+     family: [
     ["Father", "Mofizur Rahman & Works abroad"],
     ["Mother", "Mafahuza Akter & Housewife"],
     ["Siblings", "No Siblings"],
@@ -59,6 +59,20 @@ const BIODATA = {
     ["Family Values", "I'll prioritize my family more than anything."],
   ],
 
+  // Photo gallery — put image files in the "photos" folder and list them here.
+  // Leave src empty ("") to show an "Add photo" placeholder tile.
+  gallery: [
+    { src: "photos/photo-1.jpg", caption: "Portrait" },
+    { src: "", caption: "Add a photo" },
+    { src: "", caption: "Add a photo" },
+    { src: "", caption: "Add a photo" },
+  ],
+
+  preferences: [
+    "Add what you value most in a life partner.",
+    "Add preferred education / profession (optional).",
+    "Add any other preference you'd like to share.",
+  ],
 
   education: [
     {
@@ -112,8 +126,14 @@ const BIODATA = {
   ],
   hfLink: "https://www.jannatulferdaues.site/home",
 
-  interests: ["Watching Anime", "Reading Manhwa", "Watching K-drama", "Kaggle Competitions", "Building Web Apps", "Machine Learning", "Learning New Tools"],
+  interests: ["Kaggle Competitions", "Building Web Apps", "Machine Learning", "Learning New Tools", "Add a hobby", "Add a hobby"],
 
+  hobby:[
+     ["1st:", "Watching Anime"],
+     ["2nd:", "Reading Manhwa"],
+     ["3rd:", "Watching K-drama"],
+
+],
   contact: {
     note: "For proposals, please reach out to my guardian first.",
     rows: [
@@ -144,6 +164,7 @@ const markTodo = (v) => { if (isPlaceholder(v)) hasPlaceholders = true; return v
 const SECTIONS = [
   { id: "about", label: "About" },
   { id: "details", label: "Details" },
+  { id: "gallery", label: "Gallery" },
   { id: "journey", label: "Journey" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
@@ -166,10 +187,12 @@ function build() {
   if (B.photo) { core.style.backgroundImage = `url("${B.photo}")`; core.textContent = ""; }
   else core.textContent = B.initial;
 
-  const letters = [...B.name];
-  $("#heroName").innerHTML = letters
-    .map((c, i) => `<span class="ch" style="--n:${letters.length};--p:${(i / Math.max(letters.length - 1, 1)) * 100}%;animation-delay:${1000 + i * 90}ms,${2200 + i * 200}ms">${c === " " ? "&nbsp;" : c}</span>`)
-    .join("");
+  const letters = [...B.name].filter((c) => c !== " ");
+  let li = 0;
+  $("#heroName").innerHTML = B.name.split(" ").map((w) => `<span class="word">${[...w].map((c) => {
+    const i = li++;
+    return `<span class="ch" style="--n:${letters.length};--p:${(i / Math.max(letters.length - 1, 1)) * 100}%;animation-delay:${1000 + i * 90}ms,${2200 + i * 200}ms">${c}</span>`;
+  }).join("")}</span>`).join(" ");
 
   $("#stats").innerHTML = B.stats
     .map((s) => `<div class="stat"><b class="count" data-to="${s.to}" data-plain="${!!s.plain}">0</b><span>${s.label}</span></div>`)
@@ -196,6 +219,17 @@ function build() {
     ${head("The basics", "Personal details")}
     <div class="details-grid">
       ${B.details.map(([k, v], i) => `<div class="detail reveal zoom" style="--d:${i * 70}ms"><small>${k}</small><strong>${markTodo(v)}</strong></div>`).join("")}
+    </div>
+  </div></section>`;
+
+  const gallery = `
+  <section class="section" id="gallery"><div class="wrap">
+    ${head("Moments", "Photo gallery")}
+    <div class="gallery-grid">
+      ${B.gallery.map((g, i) => g.src
+        ? `<figure class="g-item reveal zoom" style="--d:${i * 110}ms" data-i="${i}" tabindex="0" role="button" aria-label="Open photo: ${g.caption}">
+            <img src="${g.src}" alt="${g.caption}" loading="lazy" /><figcaption>${g.caption}</figcaption></figure>`
+        : `<figure class="g-item empty reveal zoom" style="--d:${i * 110}ms"><div class="g-empty"><span>＋</span><em>Add photo</em></div></figure>`).join("")}
     </div>
   </div></section>`;
 
@@ -269,7 +303,7 @@ function build() {
     </div>
   </div></section>`;
 
-  $("#sections").innerHTML = about + details + journey + skills + projects + family + contact;
+  $("#sections").innerHTML = about + details + gallery + journey + skills + projects + family + contact;
 }
 
 /* ============================================================
@@ -412,6 +446,44 @@ function setupMenu() {
   });
 }
 
+/* ---------- Gallery lightbox ---------- */
+function setupGallery() {
+  const items = BIODATA.gallery.filter((g) => g.src);
+  if (!items.length) return;
+  const lb = document.createElement("div");
+  lb.className = "lightbox";
+  lb.innerHTML = `<button class="lb-close" aria-label="Close">✕</button>
+    <button class="lb-nav prev" aria-label="Previous">‹</button>
+    <figure><img alt="" /><figcaption></figcaption></figure>
+    <button class="lb-nav next" aria-label="Next">›</button>`;
+  document.body.appendChild(lb);
+  const img = $("img", lb), cap = $("figcaption", lb);
+  let cur = 0;
+  const show = (i) => {
+    cur = (i + items.length) % items.length;
+    img.classList.remove("swap"); void img.offsetWidth; img.classList.add("swap");
+    img.src = items[cur].src; img.alt = cap.textContent = items[cur].caption;
+  };
+  const open = (i) => { show(i); lb.classList.add("open"); document.body.style.overflow = "hidden"; };
+  const close = () => { lb.classList.remove("open"); document.body.style.overflow = ""; };
+  $$(".g-item:not(.empty)").forEach((el) => {
+    const idx = () => items.findIndex((g) => g.src === BIODATA.gallery[+el.dataset.i].src);
+    el.addEventListener("click", () => open(idx()));
+    el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(idx()); } });
+  });
+  $(".lb-close", lb).addEventListener("click", close);
+  $(".prev", lb).addEventListener("click", () => show(cur - 1));
+  $(".next", lb).addEventListener("click", () => show(cur + 1));
+  lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+  addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") show(cur - 1);
+    if (e.key === "ArrowRight") show(cur + 1);
+  });
+  if (items.length < 2) lb.classList.add("single");
+}
+
 /* ---------- Per-section ambient motion ---------- */
 function setupSectionFX() {
   $$(".section").forEach((s, i) => {
@@ -512,6 +584,7 @@ setupTilt();
 setupCursor();
 setupMenu();
 setupSectionFX();
+setupGallery();
 setupPetals();
 
 window.addEventListener("load", () => {
